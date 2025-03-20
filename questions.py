@@ -20,17 +20,17 @@ answers = [
 # Índice de la respuesta correcta para cada pregunta, el el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
 # Puntaje: +1 por respuesta correcta, -0.5 por intento fallido
-puntaje = 0
+score = 0
+# Define una lista con 3 preguntas aleatorias
+questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
 # El usuario deberá contestar 3 preguntas
-for _ in range(3):
-# Se selecciona una pregunta aleatoria
-    question_index = random.randint(0, len(questions) - 1)
+for question_index in range(3):
 # Se muestra la pregunta y las respuestas posibles
-    print(questions[question_index])
-    for i, answer in enumerate(answers[question_index]):
+    print(questions_to_ask[question_index][0])
+    for i, answer in enumerate(questions_to_ask[question_index][1]):
         print(f"{i + 1}. {answer}")
 # El usuario tiene 2 intentos para responder correctamente
-    for intento in range(2):
+    for attemp in range(2):
         user_answer = input("Respuesta: ")
 # Verifica que la respuesta sea válida
         if user_answer not in string.digits or int(user_answer) < 1 or int(user_answer) > 4:
@@ -39,18 +39,18 @@ for _ in range(3):
         else:
             user_answer = int(user_answer) - 1
 # Se verifica si la respuesta es correcta, suma puntaje
-        if user_answer == correct_answers_index[question_index]:
+        if user_answer == questions_to_ask[question_index][2]:
             print("¡Correcto!")
-            puntaje += 1
+            score += 1
             break
 # Resta puntaje si el intento es fallido
         else:
-            puntaje -= 0.5
+            score -= 0.5
     else:
 # Si el usuario no responde correctamente después de 2 intentos, se muestra la respuesta correcta
         print("Incorrecto. La respuesta correcta es:")
-        print(answers[question_index][correct_answers_index[question_index]])
+        print(questions_to_ask[question_index][1][questions_to_ask[question_index][2]])
 # Se imprime un blanco al final de la pregunta
         print()
 # Se muestra el puntaje al finalizar
-print("Fin del juego! Puntaje obtenido: ", puntaje)
+print("Fin del juego! Puntaje obtenido: ", score)
