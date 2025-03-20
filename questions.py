@@ -22,7 +22,7 @@ correct_answers_index = [1, 2, 0, 3, 1]
 # Puntaje: +1 por respuesta correcta, -0.5 por intento fallido
 score = 0
 # Define una lista con 3 preguntas aleatorias
-questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
+questions_to_ask = random.sample(list(zip(questions, answers, correct_answers_index)), k=3)
 # El usuario deberá contestar 3 preguntas
 for question_index in range(3):
 # Se muestra la pregunta y las respuestas posibles
